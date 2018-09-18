@@ -1,14 +1,27 @@
 -#  This file is app/views/movies/index.html.haml
 %h1 All Movies
 
+= form_tag updated_ratings_url,
+  id: :ratings_form,
+  method: :get do
+  Include: &nbsp;
+  - @all_ratings.each do |rating|
+    = rating
+    = check_box_tag "ratings[#{rating}]",
+    '1',
+    session[:ratings].include?(rating) ? true : false
+    &nbsp;
+  &nbsp; &nbsp; 
+  = submit_tag 'Refresh', id: :ratings_submit
+
 %table#movies
   %thead
     %tr
-      %th#title_header
-        = link_to "Movie Title", "#"
+      %th#title_header{class: ("hilite" if session[:sort] == 'title')}
+        = link_to "Movie Title", sorted_by_title_url
       %th Rating
-      %th#release_date_header
-        = link_to "Release Date", "#"
+      %th#release_date_header{class: ("hilite" if session[:sort] == 'release_date')}
+        = link_to "Release Date", sorted_by_date_url
       %th More Info
   %tbody
     - @movies.each do |movie|
@@ -16,6 +29,7 @@
         %td= movie.title 
         %td= movie.rating
         %td= movie.release_date
-        %td= link_to "More about #{movie.title}", movie_path(movie)
+        %td= link_to "More about #{movie.title}",
+        movie_path(movie)
 
 = link_to 'Add new movie', new_movie_path

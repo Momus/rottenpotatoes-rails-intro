@@ -18,10 +18,10 @@
   %thead
     %tr
       %th#title_header{class: ("hilite" if session[:sort] == 'title')}
-        = link_to "Movie Title", sorted_by_title_url
+        = link_to "Movie Title", sorted_by_title_url, id: 'title_header'
       %th Rating
       %th#release_date_header{class: ("hilite" if session[:sort] == 'release_date')}
-        = link_to "Release Date", sorted_by_date_url
+        = link_to "Release Date", sorted_by_date_url, id: 'release_date_header'
       %th More Info
   %tbody
     - @movies.each do |movie|

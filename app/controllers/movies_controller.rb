@@ -29,17 +29,17 @@ class MoviesController < ApplicationController
 
   def sorted_by_title
     session[:sort] = 'title'
-    redirect_to root_url
+    redirect_to movies_path
   end
 
   def sorted_by_date
     session[:sort] = 'release_date'
-    redirect_to root_url
+    redirect_to movies_path
   end
 
   def updated_ratings
     session[:ratings] = params[:ratings].keys if params[:ratings]
-    redirect_to root_url
+    redirect_to movies_path
   end
 
   # default: render 'new' template
